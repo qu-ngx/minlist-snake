@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void main()
+int main()
 {
     // init the whole windows and starting points, heading poses
     // init windows
@@ -33,13 +33,24 @@ void main()
     {
         // init wgetch (windows reader - getter)
         int pressed = wgetch(win);
-        // switch between pressed keys
+        // switch between pressed keys (since it is faster than if-else)
+
+        /* Grid (y, x)
+            (0,0)o--------------------->x    (positive)
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+                 V
+                 y (positive)
+         */
+
         switch (pressed)
         {
-        default:
-            dirX = 0;
-            dirY = 0;
-            break;
         case KEY_LEFT:
             dirX = -1;
             dirY = 0;
@@ -47,12 +58,15 @@ void main()
         case KEY_RIGHT:
             dirX = 1;
             dirY = 0;
+            break;
         case KEY_UP:
             dirX = 0;
             dirY = -1;
+            break;
         case KEY_DOWN:
             dirX = 0;
             dirY = 1;
+            break;
         }
 
         posX += dirX;
@@ -61,8 +75,8 @@ void main()
         // create blank windows (adding space to every small pixel of the window)
         erase();
         // create a snake and food by creating a string for it
-        mvaddstr(posX, posY, 'o');
-        mvaddchstr(foodX, foodY, '*');
+        mvaddstr(posY, posX, "*");
+        mvaddstr(foodY, foodX, "&");
 
         if (foodX == posX && foodY == posY)
         {
@@ -77,4 +91,5 @@ void main()
 
     // end windows
     endwin();
+    return 0;
 }
