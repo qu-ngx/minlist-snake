@@ -76,13 +76,13 @@ int main()
         erase();
         // create a snake and food by creating a string for it
         mvaddstr(posY, posX, "*");
-        mvaddstr(foodY, foodX, "&");
+        mvaddstr(foodY, foodX, "o");
 
         if (foodX == posX && foodY == posY)
         {
             // if the snake hits the food, change the food pos
-            int foodX = rand() % 20;
-            int foodY = rand() % 20;
+            foodX = rand() % 20;
+            foodY = rand() % 20;
         }
 
         // stop the program every 100000 milisec
